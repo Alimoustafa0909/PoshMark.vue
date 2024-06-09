@@ -3,6 +3,10 @@
     "name": "PoshMark",
     "description": "Share the Fourth Post",
     "version": "0.0.1",
+    "permissions": [
+        "tabs",
+        "activeTab"
+      ],
     "background": {
         "service_worker": "/background.js"
     },
