@@ -2,8 +2,10 @@
   <div id="app">
     <iframe
       src="http://localhost:8080/"
-height="200" width="300"
-      frameborder="300"
+        height="200" 
+      width="300"
+      frameborder="0"
+        scrolling="no"
      >
     </iframe>
   </div>
