@@ -6,10 +6,14 @@
 import { onMounted } from 'vue';
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'detecting'){
-    detectPost()
+  if (message.action === 'startShare') {
+     detectPost()
     console.log('Detectingform')
   }
+
+    if (message.type === 'post') {
+
+    }
 
 });
 

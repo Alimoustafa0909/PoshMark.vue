@@ -20,9 +20,12 @@ export default defineComponent({
       window.addEventListener('message', (ev) => {
         console.log('Message received in popup:', ev.data);
       
+       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tabId = tabs[0]?.id;
+        if (tabId !== undefined) {
         
-          chrome.runtime.sendMessage({ action: 'startShare', data: ev.data }, (response) => {
-            console.log('Response from background script:', response);
+          chrome.tabs.sendMessage(tabId, { action: 'startShare', data: ev.data });  
+        } 
           });
       });
     });
