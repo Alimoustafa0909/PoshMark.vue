@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <iframe
+    id="iframe"
       src="http://localhost:8080/"
       height="200"
       width="300"
@@ -10,29 +11,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+<script setup lang="ts">
+import {onMounted } from 'vue';
 
-export default defineComponent({
-  name: 'App',
-  setup() {
     onMounted(() => {
-      window.addEventListener('message', (ev) => {
-        console.log('Message received in popup:', ev.data);
-      
-       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+
+      window.addEventListener('message', function (event) {
+
+        if (event.data === 'Sharee') {
+
+          console.log('Message received in popup:', event.data);
+
+          chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const tabId = tabs[0]?.id;
         if (tabId !== undefined) {
         
-          chrome.tabs.sendMessage(tabId, { action: 'startShare', data: ev.data });  
+          chrome.tabs.sendMessage(tabId, { action: 'startShare', data: event.data });  
         } 
-          });
+         
       });
+        }
+              
+ 
     });
-
-    return {};
-  }
-});
+  });
 </script>
 
 <style scoped>

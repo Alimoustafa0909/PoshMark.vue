@@ -11,8 +11,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('Detectingform')
   }
 
-    if (message.type === 'post') {
-
+    if (message.type === 'sucess') {
+      // window.location.reload();
+console.log(message.share)
     }
 
 });
