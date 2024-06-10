@@ -11,24 +11,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 
 export default defineComponent({
   name: 'App',
   setup() {
-    window.addEventListener('message', (ev) => {
-      console.log('Message received in popup:', ev.data);
-      if (chrome && chrome.tabs) {
-           {
-       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          const tabId = tabs[0]?.id;
-           if (tabId !== undefined) {
-            chrome.tabs.sendMessage(tabId, { action: 'startShare', data: ev.data }, (response) => {
-              console.log('Response from content script:', response);
-            });
-          }
-        });
-      }
+    onMounted(() => {
+      window.addEventListener('message', (ev) => {
+        console.log('Message received in popup:', ev.data);
+      
+        
+          chrome.runtime.sendMessage({ action: 'startShare', data: ev.data }, (response) => {
+            console.log('Response from background script:', response);
+          });
+      });
+    });
 
     return {};
   }
