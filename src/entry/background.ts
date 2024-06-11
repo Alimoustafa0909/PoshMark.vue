@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
           console.log('Fetched data:', share);
 
           if (sender.tab && sender.tab.id !== undefined) {
-            chrome.tabs.sendMessage(sender.tab.id, {type: 'sucess', share});
+            chrome.tabs.sendMessage(sender.tab.id, {type: 'success', share});
         } else {
             console.error('Sender tab is undefined.');
         }  
@@ -27,9 +27,9 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
   
   async function sharePost(postId: string) {
       console.log(postId)
-    // const url = `https://poshmark.com/vm-rest/users/self/shared_posts/${postId}?pm_version=2024.23.0`;
+  const url = `https://poshmark.com/vm-rest/users/self/shared_posts/${postId}?pm_version=2024.23.0`;
     try {
-      const response = await fetch("https://poshmark.com/vm-rest/users/self/shared_posts/64e8e56f694d72922cedb6a1?pm_version=2024.23.0", {
+      const response = await fetch(url, {
         headers: {
           "accept": "application/json",
           "accept-language": "en-US,en;q=0.9",

@@ -18,7 +18,7 @@ import {onMounted } from 'vue';
 
       window.addEventListener('message', function (event) {
 
-        if (event.data === 'Sharee') {
+        if (event.data.action === 'Sharee') {
 
           console.log('Message received in popup:', event.data);
 
@@ -30,10 +30,17 @@ import {onMounted } from 'vue';
         } 
          
       });
-        }
-              
- 
+        }   
     });
+    chrome.runtime.onMessage.addListener((message) => {
+    if (message.action === 'sendIframe') {
+      const iframe = document.getElementById('iframe') as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ action: 'fetchComplete' }, '*');
+      }
+      console.log('Fetch complete message received from content script.');
+    }
+  });
   });
 </script>
 
